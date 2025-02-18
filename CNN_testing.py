@@ -8,7 +8,7 @@ from data.data_loader import load_MNIST
 from model.CNN_model import CNN, train
 # Load data
 train_loader, val_loader, test_loader = load_MNIST(
-    train_size=500, test_size=100, val_size=100, batch_size=32
+    train_size=50000, test_size=10000, val_size=100, batch_size=32
 )
 
 # Set device (use GPU if available)

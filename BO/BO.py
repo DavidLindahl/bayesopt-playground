@@ -2,7 +2,7 @@ from skopt import gp_minimize
 from skopt.space import Integer, Categorical
 import numpy as np
 from torch import nn
-
+import pandas as pd
 
 def BaysianOpt(
     CNNmodel,
@@ -50,3 +50,34 @@ def BaysianOpt(
         return -test_accs
 
     return gp_minimize(objective, dimensions, **optimizer_params)
+
+def save_results(optimize_result, dimensions, optimizer_params, filename="BO_results.csv"):
+
+    # Prepare a dictionary to collect results for plotting.
+    result_data = {
+        "iteration": [],
+        "acq_func": [],
+        "acq_value": [],
+        "accuracy": []
+    }
+
+    # Add a column for each hyperparameter.
+    for dim in dimensions:
+        result_data[dim.name] = []
+
+    # Populate the dictionary with each optimization iteration's data.
+    for i, x in enumerate(optimize_result.x_iters):
+        result_data["iteration"].append(i + 1)
+        result_data["acq_func"].append(optimizer_params["aqcuisition"])
+        func_val = optimize_result.func_vals[i]
+        result_data["acq_value"].append(func_val)
+        # Since the objective returns negative accuracy, recover accuracy.
+        result_data["accuracy"].append(-func_val)
+        # Save hyperparameter values.
+        for j, dim in enumerate(dimensions):
+            result_data[dim.name].append(x[j])
+
+    # Create a DataFrame and save to CSV.
+    df = pd.DataFrame(result_data)
+    df.to_csv(filename, index=False)
+    print("Results saved to results.csv")
