@@ -30,7 +30,7 @@ class CNN(nn.Module):
             kernel_size=kernel_size_2,
             padding=1,
         )
-
+        self.conv_2 = conv_nodes_2
         # Max pooling layer with 2x2 kernel
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
 
@@ -38,7 +38,7 @@ class CNN(nn.Module):
         self.dropout = nn.Dropout(dropout_rate)
 
         # After two poolings, the 28x28 image becomes 7x7 (since 28 -> 14 -> 7)
-        self.fc1 = nn.Linear(64 * 7 * 7, fc_nodes)
+        self.fc1 = nn.Linear(conv_nodes_2 * 7 * 7, fc_nodes)
         self.fc2 = nn.Linear(fc_nodes, 10)  # 10 output classes for MNIST
 
     def forward(self, x):
@@ -48,7 +48,7 @@ class CNN(nn.Module):
         x = F.relu(self.conv2(x))  # -> (batch_size, 64, 14, 14)
         x = self.pool(x)  # -> (batch_size, 64, 7, 7)
         x = self.dropout(x)
-        x = x.view(-1, 64 * 7 * 7)  # Flatten the tensor for the fully connected layer
+        x = x.view(-1, self.conv_2 * 7 * 7)  # Flatten the tensor for the fully connected layer
         x = F.relu(self.fc1(x))
         x = self.dropout(x)
         x = self.fc2(x)  # Output logits for each of the 10 classes

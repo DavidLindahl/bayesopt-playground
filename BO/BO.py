@@ -3,6 +3,7 @@ from skopt.space import Integer, Categorical
 import numpy as np
 from torch import nn
 import torch
+import torch.optim as optim
 from model.CNN_model import train
 
 
@@ -47,9 +48,9 @@ def BaysianOpt(
         model = CNNmodel(*x)
 
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        optimizer = torch.optim.Adam(model.parameters())
+        optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-        train_accs, test_accs = train(
+        test_accuracy = train(
             model,
             device,
             train_dataloader,
