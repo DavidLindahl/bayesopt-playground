@@ -45,10 +45,12 @@ def BO(
         model = CNNmodel(**x)
 
         train_accs, test_accs = model.train_model(
-            dataloader, epochs=train_epochs, val_dataloader=test_dataloader
+            dataloader, epochs=train_epochs, val_dataloader=val_dataloader
         )
         test_accs = test_accs[-1]
         return - test_accs
+    
+    
 
     return gp_minimize(
         objective, dimensions,
@@ -56,5 +58,4 @@ def BO(
         n_initial_points=n_initial_points,
         initial_point_generator=initial_point_generator,
         n_points=n_points,
-        verbose=verbose,
     )

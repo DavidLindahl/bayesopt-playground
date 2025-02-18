@@ -8,7 +8,8 @@ def load_MNIST(
     test_size=None,
     val_size=None,
     batch_size=32,
-    download=True,
+    shuffle = False,
+    download = True,
     root="./data",
 ):
     """
@@ -72,10 +73,10 @@ def load_MNIST(
         val_dataset = None
 
     # Create DataLoaders for each split
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=shuffle)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=shuffle)
     val_loader = (
-        DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+        DataLoader(val_dataset, batch_size=batch_size, shuffle=shuffle)
         if val_dataset is not None
         else None
     )
