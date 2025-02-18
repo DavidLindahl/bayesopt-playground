@@ -101,8 +101,6 @@ def train(model, device, train_loader, test_loader, optimizer, num_epochs):
 
         return accuracy
 
-    accuracy = np.zeros(num_epochs)
-
     model.train()  # Set the model to training mode
     for epoch in range(1, num_epochs + 1):
 
@@ -115,5 +113,5 @@ def train(model, device, train_loader, test_loader, optimizer, num_epochs):
             optimizer.step()  # Update model parameters
 
     # If a test_loader is provided, evaluate the model after each epoch
-    accuracy[epoch] = evaluate(model, device, test_loader)
+    accuracy = evaluate(model, device, test_loader)
     return accuracy

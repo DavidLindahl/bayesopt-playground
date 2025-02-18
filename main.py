@@ -1,6 +1,6 @@
 from skopt.space import Integer, Categorical
 import torch
-import model as CNNmodel
+from 
 from BO import BO
 from data.data_loader import load_MNIST
 import numpy as np
