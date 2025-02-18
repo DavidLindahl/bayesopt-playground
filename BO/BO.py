@@ -2,13 +2,12 @@ from skopt import gp_minimize
 from skopt.space import Integer, Categorical
 import numpy as np
 from torch import nn
-import model as CNNmodel
 
 
 def BO(
-    Model_class,
+    CNNmodel,
     dimensions,
-    dataloader,
+    train_dataloader,
     val_dataloader,
     optimizer_params,
 ):
@@ -34,13 +33,20 @@ def BO(
         The optimization result represented as a `OptimizeResult` object.
     """
 
+    n_calls = optimizer_params["n_calls"]
+    n_initial_points = optimizer_params["n_initial_points"]
+    initial_point_generator = optimizer_params["initial_point_generator"]
+    acquisition = optimizer_params["acquisition"]
+    n_points = optimizer_params["n_points"]
+    verbose = optimizer_params["verbose"]
+
     def objective(x):
         model = CNNmodel(**x)
 
         train_accs, test_accs = model.train_model(
-            dataloader, epochs=train_epochs, val_dataloader=test_dataloader
+            train_dataloader, epochs=train_epochs, val_dataloader=val_dataloader
         )
         test_accs = test_accs[-1]
         return -test_accs
 
-    return gp_minimize(objective, dimensions, n_calls=n_calls, **optimizer_params)  #
+    return gp_minimize(objective, dimensions, **optimizer_params)
