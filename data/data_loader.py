@@ -7,8 +7,6 @@ def load_MNIST():
     :return: training_examples, training_labels, test_examples, test_labels
     '''
 
-    # we want to flat the examples
-
     training_set = datasets.MNIST(root='./data', train=True, download=True, transform= None)
     test_set = datasets.MNIST(root='./data', train=False, download=True, transform= None)
 
