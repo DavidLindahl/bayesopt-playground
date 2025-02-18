@@ -4,7 +4,7 @@ import numpy as np
 from torch import nn
 
 
-def BO(
+def BaysianOpt(
     CNNmodel,
     dimensions,
     train_dataloader,
