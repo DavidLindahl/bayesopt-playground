@@ -43,7 +43,7 @@ data_loader_params = {
 train_loader, val_loader, test_loader = load_MNIST(**data_loader_params)
 
 OptimizeResult = BaysianOpt(
-    Model_class=CNN,
+    CNNmodel=CNN,
     dimensions=dimensions,
     train_dataloader=train_loader,
     val_dataloader=val_loader,
