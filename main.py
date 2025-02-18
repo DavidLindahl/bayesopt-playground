@@ -41,9 +41,9 @@ dimensions = [
 
 # Optimizer parameters
 optimizer_params = {
-    "n_calls": 10,  # number of iterations for optimization
+    "n_calls": 15,  # number of iterations for optimization
     "n_initial_points": 5,  # number of initial points
-    "initial_point_generator": "sobol",  # How to select the initial points.
+    "initial_point_generator": "halton",  # How to select the initial points.
     "acq_func": "gp_hedge",  # acquisition function
     "n_points": 1000,  # Number of points to sample when minimizing the acquisition function.
     "verbose": True,
@@ -51,10 +51,10 @@ optimizer_params = {
 
 # Data loader parameters
 data_loader_params = {
-    "train_size": 50000,  # number of training samples
-    "test_size": 10000,  # number of test samples
-    "val_size": 10000,  # number of validation samples
-    "batch_size": 32,  # batch size
+    "train_size": 500,  # number of training samples
+    "test_size": 100,  # number of test samples
+    "val_size": 100,  # number of validation samples
+    "batch_size": 15,  # batch size
     "shuffle": True,  # shuffle the data
 }
 
