@@ -1,6 +1,6 @@
 from skopt.space import Integer, Categorical
 import torch
-from 
+from model.CNN_model import CNN
 from BO import BO
 from data.data_loader import load_MNIST
 import numpy as np
@@ -12,9 +12,13 @@ torch.manual_seed(0)
 
 # CNNmodel hyperparameters for optimization
 dimensions = [
-    Integer(1, 10, name="n_layers"),
-    Integer(32, 512, name="n_units"),
-    Categorical(["relu", "sigmoid", "tanh"], name="activation"),
+    Integer(8, 48, name="conv_nodes_1"),
+    Integer(8, 48, name="conv_nodes_2"),
+    Categorical([3, 5], name="kernel_size_1"),
+    Categorical([3, 5], name="kernel_size_2"),
+    Integer(2, 4, name="maxpool_size"),
+    Categorical([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7], name="dropout_rate"),
+    Integer(32, 512, name="fc_nodes"),
 ]
 
 # Optimizer parameters
@@ -38,24 +42,12 @@ data_loader_params = {
 
 train_loader, val_loader, test_loader = load_MNIST(**data_loader_params)
 
-# # Check one batch from the training loader
-# for images, labels in train_loader:
-#     print("Train batch:", images.shape, labels.shape)
-#     break
 
-# if val_loader is not None:
-#     for images, labels in val_loader:
-#         print("Validation batch:", images.shape, labels.shape)
-#         break
-
-# for images, labels in test_loader:
-#     print("Test batch:", images.shape, labels.shape)
-#     break
 
 OptimizeResult = BO(
-    CNNmodel,
-    dimensions,
-    train_loader,
-    val_dataloader,
+    Model_class=CNN,
+    dimensions = dimensions,
+    train_dataloader = train_loader,
+    val_dataloader = val_loader,
     optimizer_params,
     ):
