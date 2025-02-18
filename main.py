@@ -20,38 +20,51 @@ set_random_seeds()
 
 # CNNmodel hyperparameters for optimization
 dimensions = [
-    Integer(8, 48, name="conv_nodes_1"),
-    Integer(8, 48, name="conv_nodes_2"),
-    Categorical([3, 5], name="kernel_size_1"),
-    Categorical([3, 5], name="kernel_size_2"),
-    Integer(2, 4, name="maxpool_size"),
-    Categorical([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7], name="dropout_rate"),
-    Integer(32, 512, name="fc_nodes"),
+    Integer(
+        8, 48, name="conv_nodes_1"
+    ),  # Number of output channels for the first convolutional layer
+    Integer(
+        8, 48, name="conv_nodes_2"
+    ),  # Number of output channels for the second convolutional layer
+    Categorical(
+        [3, 5], name="kernel_size_1"
+    ),  # Kernel size for the first convolutional layer
+    Categorical(
+        [3, 5], name="kernel_size_2"
+    ),  # Kernel size for the second convolutional layer
+    Integer(2, 4, name="maxpool_size"),  # Max pooling size
+    Categorical(
+        [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7], name="dropout_rate"
+    ),  # Dropout rate
+    Integer(32, 512, name="fc_nodes"),  # Number of nodes in the fully connected layer
 ]
 
 # Optimizer parameters
 optimizer_params = {
-    "n_calls": 10,
-    "n_initial_points": 5,
-    "initial_point_generator": "sobol",
-    "acq_func": "gp_hedge",
-    "n_points": 1000,
+    "n_calls": 10,  # number of iterations for optimization
+    "n_initial_points": 5,  # number of initial points
+    "initial_point_generator": "sobol",  # How to select the initial points.
+    "acq_func": "gp_hedge",  # acquisition function
+    "n_points": 1000,  # Number of points to sample when minimizing the acquisition function.
     "verbose": True,
 }
 
 # Data loader parameters
 data_loader_params = {
-    "train_size": 50000,
-    "test_size": 10000,
-    "val_size": 10000,
-    "batch_size": 32,
-    "shuffle": True,
+    "train_size": 50000,  # number of training samples
+    "test_size": 10000,  # number of test samples
+    "val_size": 10000,  # number of validation samples
+    "batch_size": 32,  # batch size
+    "shuffle": True,  # shuffle the data
 }
 
+# Number of epochs to train the model
 train_epoch = 10
 
+# Load MNIST data
 train_loader, val_loader, test_loader = load_MNIST(**data_loader_params)
 
+# Perform Bayesian Optimization
 OptimizeResult = BaysianOpt(
     CNNmodel=CNN,
     dimensions=dimensions,
