@@ -1,6 +1,6 @@
 from skopt.space import Integer, Categorical
 import torch
-from model.CNN_model import CNN
+from model.CNN_model import CNN, train
 from BO.BO import BaysianOpt
 from data.data_loader import load_MNIST
 import numpy as np
@@ -26,7 +26,7 @@ optimizer_params = {
     "n_calls": 10,
     "n_initial_points": 5,
     "initial_point_generator": "sobol",
-    "aqcuisition": "gp_hedge",
+    "acq_func": "gp_hedge",
     "n_points": 1000,
     "verbose": True,
 }
@@ -40,11 +40,14 @@ data_loader_params = {
     "shuffle": True,
 }
 
+train_epoch = 10
+
 train_loader, val_loader, test_loader = load_MNIST(**data_loader_params)
 
 OptimizeResult = BaysianOpt(
     CNNmodel=CNN,
     dimensions=dimensions,
+    train_epochs=train_epoch,
     train_dataloader=train_loader,
     val_dataloader=val_loader,
     optimizer_params=optimizer_params,
