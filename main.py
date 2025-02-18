@@ -4,10 +4,15 @@ from model.CNN_model import CNN, train
 from BO.BO import BaysianOpt
 from data.data_loader import load_MNIST
 import numpy as np
+import random
 
-# Set seeds
-np.random.seed(0)
-torch.manual_seed(0)
+def set_random_seeds(seed=42):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    random.seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+set_random_seeds()
 
 
 # CNNmodel hyperparameters for optimization
