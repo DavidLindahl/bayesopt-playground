@@ -16,7 +16,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
 # Instantiate the model and move it to the device
-model = CNN(32, 64, 3, 3, 2, 0.25, 128).to(device)
+model = CNN(32, 32, 3, 5, 2, 0.25, 128).to(device)
 
 # Create an optimizer
 optimizer = optim.Adam(model.parameters(), lr=0.001)
