@@ -35,5 +35,5 @@ OptimizeResult = BO(
     dimensions, 
     dataloader, 
     val_dataloader, 
-    **optimizer_params,
+    optimizer_params,
     ):
