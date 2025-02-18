@@ -38,24 +38,24 @@ data_loader_params = {
 
 train_loader, val_loader, test_loader = load_MNIST(**data_loader_params)
 
-# Check one batch from the training loader
-for images, labels in train_loader:
-    print("Train batch:", images.shape, labels.shape)
-    break
+# # Check one batch from the training loader
+# for images, labels in train_loader:
+#     print("Train batch:", images.shape, labels.shape)
+#     break
 
-if val_loader is not None:
-    for images, labels in val_loader:
-        print("Validation batch:", images.shape, labels.shape)
-        break
+# if val_loader is not None:
+#     for images, labels in val_loader:
+#         print("Validation batch:", images.shape, labels.shape)
+#         break
 
-for images, labels in test_loader:
-    print("Test batch:", images.shape, labels.shape)
-    break
+# for images, labels in test_loader:
+#     print("Test batch:", images.shape, labels.shape)
+#     break
 
-# OptimizeResult = BO(
-#     CNNmodel,
-#     dimensions,
-#     train_loader,
-#     val_dataloader,
-#     optimizer_params,
-#     ):
+OptimizeResult = BO(
+    CNNmodel,
+    dimensions,
+    train_loader,
+    val_dataloader,
+    optimizer_params,
+    ):
