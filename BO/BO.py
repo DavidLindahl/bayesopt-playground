@@ -49,11 +49,4 @@ def BO(
         test_accs = test_accs[-1]
         return -test_accs
 
-    return gp_minimize(
-        objective,
-        dimensions,
-        n_calls=n_calls,
-        n_initial_points=n_initial_points,
-        initial_point_generator=initial_point_generator,
-        n_points=n_points,
-    )
+    return gp_minimize(objective, dimensions, **optimizer_params)
