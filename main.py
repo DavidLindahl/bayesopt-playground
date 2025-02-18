@@ -1,7 +1,7 @@
 from skopt.space import Integer, Categorical
 import torch
 from model.CNN_model import CNN
-from BO import BO
+from BO.BO import BaysianOpt
 from data.data_loader import load_MNIST
 import numpy as np
 
@@ -42,12 +42,10 @@ data_loader_params = {
 
 train_loader, val_loader, test_loader = load_MNIST(**data_loader_params)
 
-
-
-OptimizeResult = BO(
+OptimizeResult = BaysianOpt(
     Model_class=CNN,
-    dimensions = dimensions,
-    train_dataloader = train_loader,
-    val_dataloader = val_loader,
-    optimizer_params,
-    ):
+    dimensions=dimensions,
+    train_dataloader=train_loader,
+    val_dataloader=val_loader,
+    optimizer_params=optimizer_params,
+)
