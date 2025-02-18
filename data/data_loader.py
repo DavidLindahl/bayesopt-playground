@@ -16,6 +16,8 @@ def load_MNIST():
     Xtest = test_set.data.numpy().reshape(-1,28*28)
 
     ytrain = training_set.targets.numpy()
-    ytest = test_set.targets.numpy()
+    ytest = test_set.targets.numpy()w
 
     return Xtrain, ytrain, Xtest, ytest
+
+
