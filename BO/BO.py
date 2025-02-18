@@ -81,7 +81,7 @@ def save_results(optimize_result, dimensions, optimizer_params, filename="BO_res
     # Populate the dictionary with each optimization iteration's data.
     for i, x in enumerate(optimize_result.x_iters):
         result_data["iteration"].append(i + 1)
-        result_data["acq_func"].append(optimizer_params["aqcuisition"])
+        result_data["acq_func"].append(optimizer_params["acq_func"])
         func_val = optimize_result.func_vals[i]
         result_data["acq_value"].append(func_val)
         # Since the objective returns negative accuracy, recover accuracy.

@@ -31,7 +31,7 @@ dimensions = [
 
 # Optimizer parameters
 optimizer_params = {
-    "n_calls": 10,
+    "n_calls": 45,
     "n_initial_points": 5,
     "initial_point_generator": "sobol",
     "acq_func": "gp_hedge",
@@ -41,10 +41,10 @@ optimizer_params = {
 
 # Data loader parameters
 data_loader_params = {
-    "train_size": 50000,
-    "test_size": 10000,
-    "val_size": 10000,
-    "batch_size": 32,
+    "train_size": 500,
+    "test_size": 100,
+    "val_size": 100,
+    "batch_size": 16,
     "shuffle": True,
 }
 
