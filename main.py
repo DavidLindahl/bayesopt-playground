@@ -6,6 +6,7 @@ from data.data_loader import load_MNIST
 import numpy as np
 import pandas as pd
 from visualization import *
+import random
 
 
 def set_random_seeds(seed=42):
