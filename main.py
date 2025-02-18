@@ -5,7 +5,8 @@ from BO.BO import BaysianOpt, save_results
 from data.data_loader import load_MNIST
 import numpy as np
 import pandas as pd
-from visualization import load_data, plot_metric_over_iterations, plot_acquisition_function_values, plot_model_size_vs_accuracyimport random
+from visualization import *
+
 
 def set_random_seeds(seed=42):
     np.random.seed(seed)
@@ -13,6 +14,8 @@ def set_random_seeds(seed=42):
     random.seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
+
+
 set_random_seeds()
 
 
@@ -66,19 +69,17 @@ save_results(OptimizeResult, dimensions, optimizer_params)
 def plot_results(csv_file="BO_results.csv"):
     # Load results from CSV.
     df = load_data(csv_file)
-    
+
     # Plot accuracy over iterations.
     plot_metric_over_iterations(
-        df, 
-        metric="accuracy", 
-        title="Accuracy over Iterations", 
-        ylabel="Accuracy"
+        df, metric="accuracy", title="Accuracy over Iterations", ylabel="Accuracy"
     )
-    
+
     # Plot acquisition function values over iterations.
     plot_acquisition_function_values(df)
 
     plot_model_size_vs_accuracy(df)
+
 
 # Call the plotting function after saving results.
 plot_results()
