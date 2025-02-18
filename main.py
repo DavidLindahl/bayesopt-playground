@@ -1,14 +1,19 @@
 from skopt.space import Integer, Categorical
 import torch
-from model.CNN_model import CNN
+from model.CNN_model import CNN, train
 from BO.BO import BaysianOpt, save_results
 from data.data_loader import load_MNIST
 import numpy as np
 import pandas as pd
-from visualization import load_data, plot_metric_over_iterations, plot_acquisition_function_values, plot_model_size_vs_accuracy
-# Set seeds
-np.random.seed(0)
-torch.manual_seed(0)
+from visualization import load_data, plot_metric_over_iterations, plot_acquisition_function_values, plot_model_size_vs_accuracyimport random
+
+def set_random_seeds(seed=42):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    random.seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+set_random_seeds()
 
 
 # CNNmodel hyperparameters for optimization
@@ -27,7 +32,7 @@ optimizer_params = {
     "n_calls": 10,
     "n_initial_points": 5,
     "initial_point_generator": "sobol",
-    "acquisition": "gp_hedge",
+    "acq_func": "gp_hedge",
     "n_points": 1000,
     "verbose": True,
 }
@@ -41,11 +46,14 @@ data_loader_params = {
     "shuffle": True,
 }
 
+train_epoch = 10
+
 train_loader, val_loader, test_loader = load_MNIST(**data_loader_params)
 
 OptimizeResult = BaysianOpt(
     CNNmodel=CNN,
     dimensions=dimensions,
+    train_epochs=train_epoch,
     train_dataloader=train_loader,
     val_dataloader=val_loader,
     optimizer_params=optimizer_params,
