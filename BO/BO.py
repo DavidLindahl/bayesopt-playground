@@ -59,7 +59,7 @@ def BaysianOpt(
             train_epochs,
         )
 
-        return -test_accs
+        return -test_accuracy
 
     return gp_minimize(objective, dimensions, **optimizer_params)
 
