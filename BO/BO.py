@@ -38,9 +38,9 @@ def BO(
         model = CNNmodel(**x)
 
         train_accs, test_accs = model.train_model(
-            dataloader, epochs=train_epochs, val_dataloader=test_dataloader
+            dataloader, epochs=train_epochs, val_dataloader=val_dataloader
         )
         test_accs = test_accs[-1]
         return -test_accs
 
-    return gp_minimize(objective, dimensions, n_calls=n_calls, **optimizer_params)  #
+    return gp_minimize(objective, dimensions, **optimizer_params)  #
