@@ -5,7 +5,8 @@ from BO.BO import BaysianOpt, save_results
 from data.data_loader import load_MNIST
 import numpy as np
 import pandas as pd
-from visualization import load_data, plot_metric_over_iterations, plot_acquisition_function_values, plot_model_size_vs_accuracyimport random
+import random
+from visualization import load_data, plot_metric_over_iterations, plot_acquisition_function_values, plot_model_size_vs_accuracy
 
 def set_random_seeds(seed=42):
     np.random.seed(seed)
@@ -14,7 +15,6 @@ def set_random_seeds(seed=42):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
 set_random_seeds()
-
 
 # CNNmodel hyperparameters for optimization
 dimensions = [
