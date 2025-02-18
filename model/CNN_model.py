@@ -41,7 +41,7 @@ class CNN(nn.Module):
         self.fc1 = nn.Linear(64 * 7 * 7, fc_nodes)
         self.fc2 = nn.Linear(fc_nodes, 10)  # 10 output classes for MNIST
 
-    def forward(self, x, n_layers=3):
+    def forward(self, x):
         # Input x shape: (batch_size, 1, 28, 28)
         x = F.relu(self.conv1(x))  # -> (batch_size, 32, 28, 28)
         x = self.pool(x)  # -> (batch_size, 32, 14, 14)
