@@ -43,11 +43,10 @@ def BaysianOpt(
     # acquisition = optimizer_params["acquisition"]
     # n_points = optimizer_params["n_points"]
     # verbose = optimizer_params["verbose"]
-
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     def objective(x):
         model = CNNmodel(*x)
 
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         optimizer = optim.Adam(model.parameters(), lr=0.001)
 
         test_accuracy = train(
