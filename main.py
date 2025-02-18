@@ -4,7 +4,6 @@ from model.CNN_model import CNN, train
 from BO.BO import BaysianOpt, save_results
 from data.data_loader import load_MNIST
 import numpy as np
-import pandas as pd
 from visualization import *
 import random
 

@@ -47,6 +47,8 @@ def BaysianOpt(
     def objective(x):
         model = CNNmodel(*x)
 
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model = CNNmodel(*x).to(device)
         optimizer = optim.Adam(model.parameters(), lr=0.001)
 
         test_accuracy = train(
