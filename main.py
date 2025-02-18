@@ -18,7 +18,6 @@ def set_random_seeds(seed=42):
 
 set_random_seeds()
 
-
 # CNNmodel hyperparameters for optimization
 dimensions = [
     Integer(8, 48, name="conv_nodes_1"),
