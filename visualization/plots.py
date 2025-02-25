@@ -23,7 +23,7 @@ def load_data(file_path):
 
 
 
-def plot_metric_over_iterations(df, metric, title, ylabel):
+def plot_metric_over_iterations(df, metric):
     """
     Plot the given metric over iterations for each acquisition function.
     
@@ -35,9 +35,9 @@ def plot_metric_over_iterations(df, metric, title, ylabel):
     """
     plt.figure(figsize=(10, 6))
     sns.lineplot(data=df, x="iteration", y=metric, hue="acq_func", marker="o")
-    plt.title(title)
+    plt.title(f'{metric} over iterations')
     plt.xlabel("Iteration")
-    plt.ylabel(ylabel)
+    plt.ylabel(metric)
     plt.legend(title="Acquisition Function")
     plt.tight_layout()
     plt.show()
@@ -62,50 +62,35 @@ def plot_maxpool_size_vs_accuracy(df):
     plt.tight_layout()
     plt.show()
 
-def plot_hyperparameter_evolution(df, hyperparams):
+
+def plot_hyperparameter_evolution(df, acq_func):
     """
-    Create subplots to visualize how individual hyperparameters evolve over iterations.
+    Visualize the evolution of grouped hyperparameters over iterations for a single acquisition function.
     
     Parameters:
       - df: DataFrame containing:
             - 'iteration': The iteration number.
             - 'acq_func': Acquisition function identifier.
-            - Plus one column per hyperparameter in the hyperparams list.
-      - hyperparams: List of hyperparameter names (strings) to plot
-                     (e.g., ['learning_rate', 'dropout_rate']).
+            - Various hyperparameter columns.
+      - acq_func: The acquisition function to filter for plotting.
     """
-    num_params = len(hyperparams)
-    fig, axes = plt.subplots(num_params, 1, figsize=(10, 4 * num_params), sharex=True)
+    df_filtered = df[df['acq_func'] == acq_func]
     
-    # If there's only one hyperparameter, axes is not a list.
-    if num_params == 1:
-        axes = [axes]
-
-    for i, hp in enumerate(hyperparams):
-        sns.lineplot(data=df, x="iteration", y=hp, hue="acq_func", marker="o", ax=axes[i])
-        axes[i].set_title(f"Evolution of {hp} over Iterations")
-        axes[i].set_xlabel("Iteration")
-        axes[i].set_ylabel(hp)
-        axes[i].legend(title="Acquisition Function")
+    param_groups = {
+        "Kernel & Pooling": ['kernel_size_1', 'kernel_size_2', 'maxpool_size', 'dropout_rate'],
+        "Convolutional Nodes": ['conv_nodes_1', 'conv_nodes_2']
+    }
     
-    plt.tight_layout()
-    plt.show()
-
-def plot_acquisition_function_values(df):
-    """
-    Plot the acquisition function values over iterations for each acquisition function.
+    fig, axes = plt.subplots(2, 1, figsize=(10, 10), sharex=True)
     
-    Parameters:
-      - df: DataFrame containing:
-          - 'iteration': The iteration number.
-          - 'acq_func': The acquisition function used (e.g., 'EI', 'PI', 'LCB').
-          - 'acq_value': The value of the acquisition function at that iteration.
-    """
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(data=df, x="iteration", y="acq_value", hue="acq_func", marker="o")
-    plt.title("Acquisition Function Values over Iterations")
-    plt.xlabel("Iteration")
-    plt.ylabel("Acquisition Function Value")
-    plt.legend(title="Acquisition Function")
+    for (title, params), ax in zip(param_groups.items(), axes):
+        for hp in params:
+            sns.lineplot(data=df_filtered, x="iteration", y=hp, marker="o", label=hp, ax=ax)
+        ax.set_title(f"{title} Evolution for {acq_func}")
+        ax.set_xlabel("Iteration")
+        ax.set_ylabel("Hyperparameter Value")
+        ax.legend(title="Hyperparameters")
+        ax.grid(True)
+    
     plt.tight_layout()
     plt.show()
