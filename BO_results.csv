@@ -1,0 +1,11 @@
+iteration,acq_func,acq_value,accuracy,conv_nodes_1,conv_nodes_2,kernel_size_1,kernel_size_2,maxpool_size,dropout_rate,fc_nodes
+1,gp_hedge,-0.92,0.92,24,37,5,3,3,0.3,200
+2,gp_hedge,-0.93,0.93,44,17,3,5,2,0.6,440
+3,gp_hedge,-0.92,0.92,14,47,5,5,3,0.5,80
+4,gp_hedge,-0.92,0.92,34,27,3,3,4,0.2,320
+5,gp_hedge,-0.91,0.91,39,12,5,3,3,0.3,260
+6,gp_hedge,-0.9,0.9,45,17,3,5,2,0.6,407
+7,gp_hedge,-0.93,0.93,44,17,5,5,2,0.5,433
+8,gp_hedge,-0.94,0.94,46,17,5,5,2,0.6,455
+9,gp_hedge,-0.9,0.9,47,17,3,5,3,0.7,449
+10,gp_hedge,-0.91,0.91,8,16,5,5,2,0.6,456

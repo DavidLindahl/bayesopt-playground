@@ -41,9 +41,9 @@ optimizer_params = {
 
 # Data loader parameters
 data_loader_params = {
-    "train_size": 50000,
-    "test_size": 10000,
-    "val_size": 10000,
+    "train_size": 500,
+    "test_size": 100,
+    "val_size": 100,
     "batch_size": 32,
     "shuffle": True,
 }
@@ -65,20 +65,20 @@ save_results(OptimizeResult, dimensions, optimizer_params)
 
 
 ### PLOTTING ###
-def plot_results(csv_file="BO_results.csv"):
-    # Load results from CSV.
-    df = load_data(csv_file)
+# def plot_results(csv_file="BO_results.csv"):
+#     # Load results from CSV.
+#     df = load_data(csv_file)
 
-    # Plot accuracy over iterations.
-    plot_metric_over_iterations(
-        df, metric="accuracy", title="Accuracy over Iterations", ylabel="Accuracy"
-    )
+#     # Plot accuracy over iterations.
+#     plot_metric_over_iterations(
+#         df, metric="accuracy", title="Accuracy over Iterations", ylabel="Accuracy"
+#     )
 
-    # Plot acquisition function values over iterations.
-    plot_acquisition_function_values(df)
+#     # Plot acquisition function values over iterations.
+#     plot_acquisition_function_values(df)
 
-    plot_model_size_vs_accuracy(df)
+#     plot_model_size_vs_accuracy(df)
 
 
-# Call the plotting function after saving results.
-plot_results()
+# # Call the plotting function after saving results.
+# plot_results()
