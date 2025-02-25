@@ -21,6 +21,8 @@ def load_data(file_path):
     """
     return pd.read_csv(file_path)
 
+
+
 def plot_metric_over_iterations(df, metric, title, ylabel):
     """
     Plot the given metric over iterations for each acquisition function.
@@ -40,7 +42,7 @@ def plot_metric_over_iterations(df, metric, title, ylabel):
     plt.tight_layout()
     plt.show()
 
-def plot_model_size_vs_accuracy(df):
+def plot_maxpool_size_vs_accuracy(df):
     """
     Create a scatter plot showing the trade-off between model size and accuracy.
     
@@ -51,10 +53,10 @@ def plot_model_size_vs_accuracy(df):
           - 'acq_func': Acquisition function identifier.
     """
     plt.figure(figsize=(10, 6))
-    sns.scatterplot(data=df, x="model_size", y="accuracy", hue="acq_func",
+    sns.scatterplot(data=df, x="maxpool_size", y="accuracy", hue="acq_func",
                     palette="deep", s=100, alpha=0.8)
-    plt.title("Model Size vs. Accuracy")
-    plt.xlabel("Model Size (e.g., number of parameters)")
+    plt.title("Maxpool size vs. Accuracy")
+    plt.xlabel("Maxpool size (e.g., number of parameters)")
     plt.ylabel("Accuracy")
     plt.legend(title="Acquisition Function")
     plt.tight_layout()
@@ -111,7 +113,7 @@ def plot_acquisition_function_values(df):
 
 ### EXAMPLES ###
 def main():
-    data_file = "results.csv"
+    data_file = "/Users/m.brochlips/Programering/AI/Projects/bayesian-optimization/BO_results.csv"
     df = load_data(data_file)
     
     # Plot accuracy over iterations for each acquisition function.
@@ -122,24 +124,24 @@ def main():
         ylabel="Accuracy (%)"
     )
     
-    # Plot loss over iterations.
-    plot_metric_over_iterations(
-        df,
-        metric="loss",
-        title="Loss over Iterations for Different Acquisition Functions",
-        ylabel="Loss"
-    )
+    # # Plot loss over iterations.
+    # plot_metric_over_iterations(
+    #     df,
+    #     metric="loss",
+    #     title="Loss over Iterations for Different Acquisition Functions",
+    #     ylabel="Loss"
+    # )
     
-    # Plot model size over iterations.
+    # Plot kernel_size_1 over iterations.
     plot_metric_over_iterations(
         df,
-        metric="model_size",
-        title="Model Size over Iterations for Different Acquisition Functions",
-        ylabel="Model Size (e.g., number of parameters)"
+        metric="kernel_size_1",
+        title="kernel_size_1 over Iterations for Different Acquisition Functions",
+        ylabel="kernel_size_1 (e.g., number of parameters)"
     )
     
     # Scatter plot for model size vs. accuracy.
-    plot_model_size_vs_accuracy(df)
+    plot_maxpool_size_vs_accuracy(df)
     
     # Plot acquisition function values over iterations.
     plot_acquisition_function_values(df)
