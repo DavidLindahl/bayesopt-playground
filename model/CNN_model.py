@@ -20,7 +20,7 @@ class CNN(nn.Module):
             in_channels=1,
             out_channels=conv_nodes_1,
             kernel_size=kernel_size_1,
-            padding=int((kernel_size_1-1)/2),
+            padding=int((kernel_size_1 - 1) / 2),
         )
 
         # Second convolution: 32 input channels, 64 output channels
@@ -28,7 +28,7 @@ class CNN(nn.Module):
             in_channels=conv_nodes_1,
             out_channels=conv_nodes_2,
             kernel_size=kernel_size_2,
-            padding=int((kernel_size_2-1)/2),
+            padding=int((kernel_size_2 - 1) / 2),
         )
         self.conv_2 = conv_nodes_2
         # Max pooling layer with 2x2 kernel
@@ -48,7 +48,9 @@ class CNN(nn.Module):
         x = F.relu(self.conv2(x))  # -> (batch_size, 64, 14, 14)
         x = self.pool(x)  # -> (batch_size, 64, 7, 7)
         x = self.dropout(x)
-        x = x.view(-1, self.conv_2 * 7 * 7)  # Flatten the tensor for the fully connected layer
+        x = x.view(
+            -1, self.conv_2 * 7 * 7
+        )  # Flatten the tensor for the fully connected layer
         x = F.relu(self.fc1(x))
         x = self.dropout(x)
         x = self.fc2(x)  # Output logits for each of the 10 classes
