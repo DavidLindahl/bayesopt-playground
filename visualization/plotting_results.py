@@ -3,16 +3,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-### CHANGE PATH #### 
+### NOTE: CHANGE PATH #### 
 path = "/Users/m.brochlips/Programering/AI/Projects/bayesian-optimization/BO_results.csv"
 
 df = load_data(path)
-
-# df.keys()
-hyperparams = ['iteration', 'acq_func', 'acq_value', 'accuracy', 'conv_nodes_1','conv_nodes_2', 'kernel_size_1', 'kernel_size_2', 'maxpool_size','dropout_rate', 'fc_nodes']
+# df.keys() = hyperparams (ish)
 
 # -----------------
-chosen_metrics = [hyperparams[i] for i in (3, 8)]
+hyperparams = ['iteration', 'acq_func', 'acq_value', 'accuracy', 'conv_nodes_1','conv_nodes_2', 'kernel_size_1', 'kernel_size_2', 'maxpool_size','dropout_rate', 'fc_nodes']
+
+chosen_metrics = [hyperparams[i] for i in (3, 8)] #NOTE change metrics here
 
 # Plot accuracy over iterations for each acquisition function.
 for metric in chosen_metrics:
@@ -22,8 +22,8 @@ for metric in chosen_metrics:
     )
 # -----------------
 
-plot_hyperparameter_evolution(df, acq_func="gp_hedge")
+plot_hyperparameter_evolution(df, acq_func="gp_hedge") #NOTE change acq_func
 
-#EXTRA uncomment:
+#EXTRA uncomment to use:
 # Scatter plot for model size vs. accuracy.
 # plot_maxpool_size_vs_accuracy(df)
